@@ -21,11 +21,11 @@
     
     body { background: var(--bg-gradient); font-family: 'Poppins', sans-serif; text-align: center; margin: 0; overflow-x: hidden; color: var(--text-main); transition: 1s; }
 
-    /* Parallax Galaxy Background */
+    /* 1. Parallax Galaxy Layer */
     #parallax-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
     .star-layer { position: absolute; inset: 0; background: transparent; }
 
-    /* Password Overlay */
+    /* 10. Password Protection Overlay */
     #password-overlay { position: fixed; inset: 0; background: #ffd1dc; z-index: 2000; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: 1.5s ease-in-out; }
     #pass-input { padding: 12px; border-radius: 25px; border: 2px solid #ff4d94; text-align: center; font-size: 1.2em; width: 220px; outline: none; margin-bottom: 15px; }
     #pass-btn { padding: 10px 30px; border-radius: 25px; border: none; background: #ff4d94; color: white; font-weight: bold; cursor: pointer; transition: 0.3s; }
@@ -39,20 +39,21 @@
     .container { background-color: var(--container-bg); padding: 40px 20px; border-radius: 30px; box-shadow: 0px 15px 45px rgba(0,0,0,0.1); max-width: 800px; margin: 40px auto; position: relative; z-index: 10; display: none; opacity: 0; transform: translateY(30px); transition: 2s ease; box-sizing: border-box; }
     .container.show { display: block; opacity: 1; transform: translateY(0); }
 
-    /* Fixed Cover Photo Size (හදපු කොටස) */
-    .cover-photo { 
-      width: 100%; 
-      max-height: 350px; /* උස සීමා කළා */
-      object-fit: cover; /* පින්තූරය කැපී පෙනෙන විදිහට සකස් කළා */
-      border-radius: 20px; 
-      margin-top: 10px; 
-      margin-bottom: 25px; 
-      box-shadow: 0px 5px 15px rgba(0,0,0,0.3); 
-    }
+    /* Fixed Cover Photo */
+    .cover-photo { width: 100%; max-height: 350px; object-fit: cover; border-radius: 20px; margin-top: 10px; margin-bottom: 25px; box-shadow: 0px 5px 15px rgba(0,0,0,0.3); }
 
-    /* 3D Heart & Mood controls */
-    .heart-3d { position: fixed; top: 20px; left: 20px; width: 50px; height: 50px; z-index: 100; animation: rotate3d 4s infinite linear; pointer-events: none; font-size: 40px; }
+    /* Clickable 3D Heart */
+    .heart-3d { position: fixed; top: 20px; left: 20px; width: 50px; height: 50px; z-index: 100; animation: rotate3d 4s infinite linear; cursor: pointer; font-size: 40px; }
     @keyframes rotate3d { from { transform: rotateY(0deg); } to { transform: rotateY(360deg); } }
+    
+    /* Photo Modal from Heart */
+    #heart-photo-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 3000; align-items: center; justify-content: center; }
+    .photo-frame { width: 250px; height: 350px; background: white; border: 10px solid white; border-bottom: 50px solid white; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border-radius: 5px; transform: scale(0); transition: 0.5s; position: relative; }
+    .photo-frame.show { transform: scale(1) rotate(var(--r)); }
+    .photo-frame img { width: 100%; height: 100%; object-fit: cover; }
+    .close-photo { position: absolute; top: -15px; right: -15px; background: #e6005c; color: white; border-radius: 50%; width: 30px; height: 30px; border: none; font-weight: bold; cursor: pointer; }
+
+    /* Mood controls */
     .controls { position: fixed; bottom: 20px; right: 20px; z-index: 100; display: flex; gap: 10px; flex-direction: column; }
     .btn-mood { width: 45px; height: 45px; border-radius: 50%; border: none; cursor: pointer; font-size: 1.2em; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
 
@@ -60,29 +61,30 @@
     h1 { font-size: 3.5em; }
     h2 { font-size: 2.5em; border-bottom: 2px dashed #ff99bb; display: inline-block; padding-bottom: 5px; margin-top: 40px; }
 
-    /* Counters (Animated) */
+    /* Counters (Main & Next Meet Animated) */
     .counter-wrapper { display: flex; justify-content: center; gap: 15px; margin: 20px 0; flex-wrap: wrap; }
     .time-box { background: var(--accent); color: white; padding: 15px; border-radius: 15px; min-width: 70px; animation: float 3s infinite; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
     .time-number { font-size: 2em; font-weight: 600; display: block; }
     @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
 
-    /* Journey */
+    /* Journey Style */
     .journey-card { background: var(--card-bg); border-radius: 20px; padding: 20px; margin-bottom: 20px; display: flex; align-items: center; gap: 20px; text-align: left; transition: 1s; }
     .journey-icon { font-size: 2.5em; }
     .special-date { border: 2px solid #ff1a75; animation: glowPulse 2s infinite; }
-    @keyframes glowPulse { 0%, 100% { box-shadow: 0 0 5px #ff1a75; transform: scale(1); } 50% { box-shadow: 0 0 25px #ff1a75; transform: scale(1.02); } }
+    @keyframes glowPulse { 0%, 100% { box-shadow: 0 0 5px #ff1a75; transform: scale(1); } 50% { box-shadow: 0 0 25px #ff1a75; transform: scale(1.03); } }
     .special-date .journey-icon { animation: heartBeat 1.2s infinite; }
     @keyframes heartBeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.3); } }
 
-    /* Travel Grid */
+    /* Travel Grid Layout */
     .travel-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 20px; margin-top: 30px; }
     .travel-card { background: var(--card-bg); border-radius: 15px; padding: 10px; cursor: pointer; transition: 0.3s; position: relative; }
-    .img-wrapper { width: 100%; aspect-ratio: 1/1; border-radius: 10px; overflow: hidden; position: relative; }
+    .img-wrapper { width: 100%; aspect-ratio: 1/1; border-radius: 10px; overflow: hidden; position: relative; background: #eee; }
     .img-wrapper img { width: 100%; height: 100%; object-fit: cover; }
     .tick-overlay { position: absolute; inset: 0; background: rgba(0, 204, 102, 0.5); display: flex; align-items: center; justify-content: center; font-size: 3em; opacity: 0; transition: 0.3s; pointer-events: none; }
     .visited-card .tick-overlay { opacity: 1; }
+    .place-title { margin-top: 8px; font-weight: 600; font-size: 0.9em; }
 
-    /* Scratch Card */
+    /* Scratch Card Section */
     #scratch-container { position: relative; width: 280px; height: 150px; margin: 25px auto; border-radius: 15px; overflow: hidden; border: 4px solid #ffb6c1; }
     #scratch-canvas { position: absolute; inset: 0; z-index: 2; cursor: crosshair; }
     .scratch-secret { position: absolute; inset: 0; background: white; display: flex; align-items: center; justify-content: center; font-family: 'Dancing Script', cursive; font-size: 1.4em; color: #e6005c; z-index: 1; padding: 15px; }
@@ -103,15 +105,15 @@
     .stem { width: 4px; height: 60px; background: #00cc66; margin: -10px auto 0; }
     @keyframes bloom { from { transform: rotate(-45deg) scale(0); } to { transform: rotate(-45deg) scale(1); } }
 
-    /* Particles & Rain */
+    /* Particles & Hand Note */
     .burst-heart { position: fixed; font-size: 35px; z-index: 2000; animation: burst 1.5s forwards; pointer-events: none; }
     @keyframes burst { 0% { transform: translate(-50%, -50%) scale(1); opacity: 1; } 100% { transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(0); opacity: 0; } }
     .particle { position: fixed; z-index: 1; pointer-events: none; animation: fall linear forwards; }
     @keyframes fall { 0% { transform: translateY(-10vh) rotate(0deg) scale(1); opacity: 1; } 100% { transform: translateY(110vh) rotate(360deg) scale(0.5); opacity: 0; } }
-    .hand-note { position: fixed; font-family: 'Dancing Script', cursive; font-size: 1.5em; color: rgba(230, 0, 92, 0.3); pointer-events: none; z-index: 5; }
+    .hand-note { position: fixed; font-family: 'Dancing Script', cursive; font-size: 1.5em; color: rgba(230, 0, 92, 0.3); pointer-events: none; z-index: 5; transition: 2s; }
 
-    /* Lyrics Display */
-    #lyrics-bar { position: fixed; bottom: 20px; left: 0; width: 100%; font-family: 'Dancing Script', cursive; font-size: 1.5em; color: var(--heading-color); text-shadow: 2px 2px 5px white; z-index: 100; pointer-events: none; opacity: 0; transition: 1s; }
+    /* 5. Lyrics Display Bar */
+    #lyrics-bar { position: fixed; bottom: 20px; left: 0; width: 100%; font-family: 'Dancing Script', cursive; font-size: 1.6em; color: var(--heading-color); text-shadow: 2px 2px 10px white; z-index: 100; pointer-events: none; opacity: 0; transition: 1s; padding: 0 10px; box-sizing: border-box; }
 
     @media (max-width: 600px) { h1 { font-size: 2.3em; } .cover-photo { max-height: 250px; } .travel-grid { grid-template-columns: 1fr 1fr; } .container { padding: 25px 15px; } }
   </style>
@@ -133,7 +135,13 @@
     <div id="bouquet-loader"></div>
   </div>
 
-  <div class="heart-3d">❤️</div>
+  <div class="heart-3d" onclick="showHeartPhoto()">❤️</div>
+  <div id="heart-photo-modal" onclick="closeHeartPhoto()">
+    <div class="photo-frame" id="photo-frame">
+        <button class="close-photo">&times;</button>
+        <img src="cover.png" alt="Us"> </div>
+  </div>
+
   <div id="player" style="position: absolute; top: -9999px;"></div>
   <div id="lyrics-bar"></div>
 
@@ -145,7 +153,6 @@
 
   <div class="container" id="main-container">
     <div id="compliment-bot" style="color:#ff4d94; font-weight:600; font-style:italic; margin-bottom:15px;"></div>
-    
     <img src="cover.png" alt="Our Cover" class="cover-photo">
     
     <h1>To My Everything, Chuti... 💖</h1>
@@ -195,6 +202,7 @@
     </div>
 
     <h2>Dream Trip To Sri Lanka</h2>
+    <p style="font-size:0.85em; color:#777; margin-bottom:15px;">Mark as visited! ✅</p>
     <div class="travel-grid" id="travel-grid"></div>
 
     <h2>රහස බලන්න මෙතැන සූරන්න 🎁</h2>
@@ -222,7 +230,7 @@
         <h3 style="margin:0; font-size:1.8em;">Wishing Well ⛲</h3>
         <p style="font-size:0.85em;">Make a wish, Chuti. It will fly to my heart...</p>
         <form action="https://formspree.io/f/mpqybqek" method="POST">
-            <textarea name="wish" placeholder="Type your wish here..."></textarea>
+            <textarea name="wish" placeholder="Type your wish here..." style="width:100%; height:80px; border-radius:10px; border: 1.5px solid #4dd0e1; padding:10px; margin-top:10px; font-family:inherit;"></textarea>
             <br><button type="submit" style="background:#4dd0e1; color:white; border:none; padding:10px 25px; border-radius:20px; margin-top:10px; cursor:pointer; font-weight:bold;">Send to Prashan</button>
         </form>
     </div>
@@ -234,7 +242,7 @@
         </div>
         <div id="f-unlocked" style="display:none;">
             <h3>Our 1 Year Anniversary Letter</h3>
-            <p>මගේ ආදරණීය චූටි, අපි දැන් අවුරුද්දක් එකට... (Your letter content here)</p>
+            <p>මගේ ආදරණීය චූටි, අපි දැන් අවුරුද්දක් එකට... (ඔයාගේ හීනයක් මෙතන ලියන්න)</p>
         </div>
     </div>
 
@@ -246,28 +254,26 @@
 
   <script src="https://www.youtube.com/iframe_api"></script>
   <script>
-    // 1. Data - 365 Reasons
+    // 2. Data - 365 Unique Reasons
     const dailyNotes = Array(365).fill("").map((_, i) => [
-        "You are my favorite thought. ❤️", "Your smile is my absolute favorite sight. ✨", "I love the way you talk and care. 🫂",
-        "Counting every second until I see you. ⏳", "You make my world brighter, Chuti. 🌟", "I promise to be your safe place. 🏠",
-        "My love for you grows every day. 📈", "You're the melody to my heart's song. 🎵", "I love your kindness. 💖",
-        "I'm so lucky to have you. 🍀", "You are my peace in this world. 🌊", "Every day with you is a gift. 🎁",
-        "I can't wait for our next adventure. ✈️", "I love your laugh more than anything. 😂", "You are my best friend. 👫",
-        "You are the most beautiful person I know. 🌸", "Thank you for being mine. 💌", "I treasure every moment with you. 💎",
-        "I love you more than yesterday. 💘", "You are my home. 🏡"
-    ][i % 20]); 
+        "මගේ ජීවිතේ සිද්ධ වුණු ලස්සනම දේ ඔයා. ❤️", "ඔයාගේ හිනාව මට මුළු ලෝකෙටම වඩා වටිනවා. ✨", 
+        "ඔයාගේ කටහඬ අහද්දී මගේ හිතට සෑහෙන සැනසීමක් දැනෙනවා. 🫂", "ඔයාව මුණගැහෙනකන් මම තත්පර ගණන් කරනවා. ⏳",
+        "ඔයා මේ ලෝකෙ ඉන්න ලස්සනම මනුස්සයා. 🌟", "මම හැමදාම ඔයාගේ සෙවනැල්ල වගේ ඉන්නවා. 🏠",
+        "දවසින් දවස මම ඔයාට තවත් ආදරේ වෙනවා. 📈", "ඔයා තමයි මගේ හදවතේ රිද්මය. 🎵",
+        "ඔයාගේ කරුණාවන්ත හිතට මම ගොඩක් ආදරෙයි. 💖", "ඔයාව ලැබුණු මම ඇත්තටම වාසනාවන්තයි. 🍀"
+    ][i % 10]);
 
-    const compliments = ["You look amazing today, Chuti!", "Prashan's lucky to have you!", "Stay sweet always!", "You are my sunshine!"];
-    const lyricsList = ["මහද දවා සැරි සරන මුවැත්තිය...", "ඔබ මගෙ පණයි කියා හිතුණා...", "නිහඬව ගලා යයි ආදරේ...", "සදහට මා සතුයි ඔබ මගේ..."];
+    const compliments = ["You look amazing today, Chuti!", "Prashan's lucky to have you!", "You are my sunshine!", "Keep smiling always!"];
+    const lyricsList = ["මහද දවා සැරි සරන මුවැත්තිය...", "ඔබ මගෙ පණයි කියා හිතුණා...", "නිහඬව ගලා යයි ආදරේ...", "සදහට මා සතුයි ඔබ මගේ...", "අපි මුණගැසුණු ඒ රාත්‍රිය..."];
     const locations = ["Colombo", "Kandy", "Negombo", "Nuwara Eliya", "Weligama", "Ella", "Sigiriya", "Anuradhapuraya", "Pollonaruwa", "Balapitiya", "Dambulla", "Bentota", "Mirissa", "Trincomalee", "Kaluthara", "Jaffna", "Arugambay", "Hikkaduwa", "Galle", "Mahiyanganaya", "Unawatuna", "Matara", "Tissamaharama", "Kalpitiya", "Kurunegala", "Pinnawala", "Haputale", "Ratnapura", "Ambalangoda", "Mannar"];
 
-    // 2. Checklist & Memory
+    // Checklist Memory
     let visited = JSON.parse(localStorage.getItem('vPlaces')) || [];
     function initTravel() {
         document.getElementById('travel-grid').innerHTML = locations.map(l => `
             <div class="travel-card ${visited.includes(l) ? 'visited-card' : ''}" onclick="toggleV('${l}', this)">
                 <div class="img-wrapper">
-                    <img src="https://source.unsplash.com/featured/?${l},landscape,srilanka">
+                    <img src="https://placehold.co/150x150/ffb6c1/ffffff?text=${l}">
                     <div class="tick-overlay">✅</div>
                 </div>
                 <div class="place-title">${l}</div>
@@ -279,7 +285,7 @@
         localStorage.setItem('vPlaces', JSON.stringify(visited));
     }
 
-    // 3. Password & Opening Transition
+    // Password & Opening (Feature 10)
     function checkPassword() {
         if(document.getElementById('pass-input').value.toLowerCase() === 'chuti') {
             document.getElementById('input-area').style.display = 'none';
@@ -309,15 +315,16 @@
                     if(player && player.playVideo) { player.seekTo(25); player.playVideo(); }
                 }, 1500);
             }, 3500);
-        } else { alert("Wrong nickname! ❤️"); }
+        } else { alert("Chuti ge namama gahanna! ❤️"); }
     }
 
-    // 4. Music & Counters
+    // Music Player (Feature 3)
     let player;
     function onYouTubeIframeAPIReady() {
-        player = new YT.Player('player', { height:'0', width:'0', videoId:'6_rYJqrju8g', playerVars:{start:25, loop:1}, events:{onReady:(e)=>e.target.setVolume(45)}});
+        player = new YT.Player('player', { height:'0', width:'0', videoId:'6_rYJqrju8g', playerVars:{start:25}, events:{onReady:(e)=>e.target.setVolume(45)}});
     }
 
+    // Counters (Feature 4 & 6)
     const yaluDate = new Date(2026, 2, 2).getTime();
     const meetDate = new Date(2026, 2, 22, 16).getTime();
     setInterval(() => {
@@ -337,7 +344,7 @@
         }
     }, 1000);
 
-    // 5. Features Logic (Scratch, Hug, Letter)
+    // Scratch Logic (Feature 3)
     const canvas = document.getElementById('scratch-canvas');
     const ctx = canvas.getContext('2d');
     ctx.fillStyle = '#C0C0C0'; ctx.fillRect(0,0,280,150);
@@ -350,26 +357,23 @@
     };
     canvas.addEventListener('mousemove', scratch); canvas.addEventListener('touchmove', scratch);
 
+    // Virtual Hug (Feature 6)
     const hugBtn = document.getElementById('hug-btn');
     hugBtn.addEventListener('mousedown', () => { document.getElementById('pulse').style.display='block'; document.getElementById('heart-sound').play(); });
     hugBtn.addEventListener('mouseup', () => { document.getElementById('pulse').style.display='none'; document.getElementById('heart-sound').pause(); });
     hugBtn.addEventListener('touchstart', () => { document.getElementById('pulse').style.display='block'; document.getElementById('heart-sound').play(); });
     hugBtn.addEventListener('touchend', () => { document.getElementById('pulse').style.display='none'; document.getElementById('heart-sound').pause(); });
 
-    function breakSeal() {
-        document.querySelector('.wax-seal').style.transform='scale(0)';
-        setTimeout(() => {
-            document.getElementById('wax-seal-area').style.display='none';
-            document.getElementById('secretLetter').style.display='block';
-            document.getElementById('rose-container').style.display='block';
-            typeText();
-        }, 500);
-    }
-    const txt = "මගේ ආදරණීය චූටි, මේක අපේම පුංචි ලෝකය. අපි එකට ගත කරපු හැම තත්පරයක්ම මට ගොඩක් වටිනවා. මම ඔයාට හැමදාමත් මේ වගේම ආදරේ කරනවා. ඔයා තමයි මගේ ජීවිතේ ලස්සනම හීනය. මම ඔයාට ගොඩාක් ආදරෙයි!";
+    // Letter & Heart surprise
+    function showHeartPhoto() { document.getElementById('heart-photo-modal').style.display='flex'; setTimeout(()=>document.getElementById('photo-frame').classList.add('show'),100); }
+    function closeHeartPhoto() { document.getElementById('photo-frame').classList.remove('show'); setTimeout(()=>document.getElementById('heart-photo-modal').style.display='none',500); }
+    function breakSeal() { document.querySelector('.wax-seal').style.transform='scale(0)'; setTimeout(() => { document.getElementById('wax-seal-area').style.display='none'; document.getElementById('secretLetter').style.display='block'; document.getElementById('rose-container').style.display='block'; typeText(); }, 500); }
+    
+    const letterText = "මගේ ආදරණීය චූටි, මේක අපේම පුංචි ලෝකය. අපි එකට ගත කරපු හැම තත්පරයක්ම මට ගොඩක් වටිනවා. මම ඔයාට හැමදාමත් මේ වගේම ආදරේ කරනවා. ඔයා තමයි මගේ ජීවිතේ ලස්සනම හීනය. මම ඔයාට ගොඩාක් ආදරෙයි!";
     let charI = 0;
-    function typeText() { if(charI < txt.length) { document.getElementById('typing-text').innerHTML += txt.charAt(charI++); setTimeout(typeText, 60); } }
+    function typeText() { if(charI < letterText.length) { document.getElementById('typing-text').innerHTML += letterText.charAt(charI++); setTimeout(typeText, 60); } }
 
-    // 6. Visual Effects (Parallax, Mood, Particles)
+    // Parallax Galaxy (Feature 1)
     function createStars() {
         const s1 = document.getElementById('stars-1');
         for(let i=0; i<80; i++) {
@@ -381,21 +385,7 @@
     }
     window.addEventListener('scroll', () => { document.getElementById('stars-1').style.transform = `translateY(${window.pageYOffset * 0.4}px)`; });
 
-    setInterval(() => {
-        const p = document.createElement("div"); p.className="particle";
-        p.innerHTML = document.body.classList.contains('night-mode') ? "⭐" : "❤️";
-        p.style.left = Math.random()*100+"vw"; p.style.fontSize = Math.random()*20+10+"px";
-        p.style.animationDuration = Math.random()*3+4+"s"; document.body.appendChild(p);
-        setTimeout(()=>p.remove(), 7000);
-    }, 500);
-
-    function spawnNote() {
-        const n = document.createElement('div'); n.className='hand-note'; n.innerText="I love you ❤️";
-        n.style.left=Math.random()*80+'vw'; n.style.top=Math.random()*80+'vh';
-        document.body.appendChild(n); setTimeout(()=>n.remove(), 4000);
-    }
-    setInterval(spawnNote, 8000);
-
+    // Mood & Extras
     function setMood(m) { document.body.className = 'mood-'+m; }
     function toggleNightMode() { document.body.classList.toggle('night-mode'); }
     function openBottle() { alert("📜 Hidden Note:\n\n'මගේ මුළු ජීවිතයටම මට ඉන්න වටිනාම මනුස්සයා ඔයා විතරයි චූටි. මම පොරොන්දු වෙනවා ඔයාව මගේ පණ වගේ බලාගන්නවා කියලා.'"); }
@@ -406,10 +396,20 @@
         const d = new Date(); const day = Math.floor((d - new Date(d.getFullYear(),0,0))/86400000);
         document.getElementById('daily-reason').innerText = dailyNotes[day % dailyNotes.length];
         document.getElementById('compliment-bot').innerText = compliments[Math.floor(Math.random()*compliments.length)];
+        
         let lyI = 0; setInterval(() => {
             const bar = document.getElementById('lyrics-bar');
             bar.style.opacity = 0; setTimeout(() => { bar.innerText = lyricsList[lyI++ % lyricsList.length]; bar.style.opacity = 1; }, 1000);
-        }, 7000);
+        }, 8000);
+
+        setInterval(() => {
+            const p = document.createElement("div"); p.className="particle";
+            p.innerHTML = document.body.classList.contains('night-mode') ? "⭐" : "❤️";
+            p.style.left = Math.random()*100+"vw"; p.style.fontSize = Math.random()*20+10+"px";
+            p.style.animationDuration = Math.random()*3+4+"s"; document.body.appendChild(p);
+            setTimeout(()=>p.remove(), 7000);
+        }, 500);
+
         if(new Date() > new Date(2027, 2, 2)) { document.getElementById('f-locked').style.display='none'; document.getElementById('f-unlocked').style.display='block'; }
     };
   </script>
